@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Monarchs.Common.Constants;
 using Monarchs.Common.Interfaces;
 using Monarchs.Common.ViewModels;
 using System.Net.Mime;
@@ -13,10 +14,12 @@ namespace Monarchs.Api.Controllers
     public class LoginController : ControllerBase
     {
         private ILoginService _loginService;
+        private readonly ILogger<LoginController> _logger;
 
-        public LoginController(ILoginService loginService)
+        public LoginController(ILoginService loginService, ILogger<LoginController> logger)
         {
             _loginService = loginService;
+            _logger = logger;
         }
 
         /// <summary>
@@ -36,7 +39,8 @@ namespace Monarchs.Api.Controllers
                 return Ok(token);
             }
 
-            return NotFound("User not found");
+            _logger.LogInformation(LogMessages.UserNotFound);
+            return NotFound(LogMessages.UserNotFound);
         }
 
     }

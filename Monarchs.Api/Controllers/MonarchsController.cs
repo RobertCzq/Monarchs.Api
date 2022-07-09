@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Monarchs.Common.Constants;
 using Monarchs.Common.Interfaces;
 using Monarchs.Common.ViewModels;
 using System.Net.Mime;
@@ -13,10 +14,12 @@ namespace Monarchs.Api.Controllers
     public class MonarchsController : ControllerBase
     {
         private readonly IMonarchsCache _monarchsCache;
+        private readonly ILogger<MonarchsController> _logger;
 
-        public MonarchsController(IMonarchsCache monarchsCache)
+        public MonarchsController(IMonarchsCache monarchsCache, ILogger<MonarchsController> logger)
         {
             _monarchsCache = monarchsCache;
+            _logger = logger;
         }
 
         [HttpGet("GetNumberOfMonarchs")]
@@ -28,7 +31,8 @@ namespace Monarchs.Api.Controllers
             if (monarches != null)
                 return Ok(monarches.Count());
 
-            return NotFound("Could not find any monarch!");
+            _logger.LogInformation(LogMessages.CouldNotFindAnyMonarch);
+            return NotFound(LogMessages.CouldNotFindAnyMonarch);
         }
 
         [HttpGet("GetLongestRulingMonarch")]
@@ -47,7 +51,8 @@ namespace Monarchs.Api.Controllers
                 }
             }
 
-            return NotFound("Could not find any monarch!");
+            _logger.LogInformation(LogMessages.CouldNotFindAnyMonarch);
+            return NotFound(LogMessages.CouldNotFindAnyMonarch);
         }
 
         [HttpGet("GetLongestRulingHouse")]
@@ -70,7 +75,8 @@ namespace Monarchs.Api.Controllers
                 }
             }
 
-            return NotFound("Could not find any house!");
+            _logger.LogInformation(LogMessages.CouldNotFindAnyHouse);
+            return NotFound(LogMessages.CouldNotFindAnyHouse);
         }
 
         [HttpGet("GetMostCommonFirstName")]
@@ -91,7 +97,8 @@ namespace Monarchs.Api.Controllers
                 }
             }
 
-            return NotFound("Could not find out the most common first name!");
+            _logger.LogInformation(LogMessages.CouldNotFindOutCommonName);
+            return NotFound(LogMessages.CouldNotFindOutCommonName);
         }
     }
 }
