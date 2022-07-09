@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Monarchs.Common.Interfaces;
 using Monarchs.Common.ViewModels;
 using System.Net.Mime;
@@ -33,6 +34,7 @@ namespace Monarchs.Api.Controllers
         [HttpGet("GetLongestRulingMonarch")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Administrator,Normal")]
         public async Task<IActionResult> GetLongestRulingMonarch()
         {
             var monarches = await _monarchsCache.GetAll();
@@ -51,6 +53,7 @@ namespace Monarchs.Api.Controllers
         [HttpGet("GetLongestRulingHouse")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Administrator,Normal")]
         public async Task<IActionResult> GetLongestRulingHouse()
         {
             var monarches = await _monarchsCache.GetAll();
@@ -73,6 +76,7 @@ namespace Monarchs.Api.Controllers
         [HttpGet("GetMostCommonFirstName")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Administrator,Normal")]
         public async Task<IActionResult> GetMostCommonFirstName()
         {
             var monarches = await _monarchsCache.GetAll();
