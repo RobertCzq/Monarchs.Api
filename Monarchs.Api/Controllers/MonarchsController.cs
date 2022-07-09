@@ -11,11 +11,11 @@ namespace Monarchs.Api.Controllers
     [Consumes(MediaTypeNames.Application.Json)]
     public class MonarchsController : ControllerBase
     {
-        private readonly IMonarchsDataStore _monarchsDataStore;
+        private readonly IMonarchsCache _monarchsCache;
 
-        public MonarchsController(IMonarchsDataStore monarchsDataStore)
+        public MonarchsController(IMonarchsCache monarchsCache)
         {
-            _monarchsDataStore = monarchsDataStore;
+            _monarchsCache = monarchsCache;
         }
 
         [HttpGet("GetNumberOfMonarchs")]
@@ -23,8 +23,8 @@ namespace Monarchs.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetNumberOfMonarchs()
         {
-            var monarches = await _monarchsDataStore.GetAll();
-            if (monarches != null && monarches.Any())
+            var monarches = await _monarchsCache.GetAll();
+            if (monarches != null)
                 return Ok(monarches.Count());
 
             return NotFound("Could not find any monarch!");
@@ -35,7 +35,7 @@ namespace Monarchs.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLongestRulingMonarch()
         {
-            var monarches = await _monarchsDataStore.GetAll();
+            var monarches = await _monarchsCache.GetAll();
             if (monarches != null && monarches.Any())
             {
                 var longestRulingMonarch = monarches.OrderByDescending(m => m.NrOfYearsRuled).FirstOrDefault();
@@ -53,7 +53,7 @@ namespace Monarchs.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetLongestRulingHouse()
         {
-            var monarches = await _monarchsDataStore.GetAll();
+            var monarches = await _monarchsCache.GetAll();
             if (monarches != null && monarches.Any())
             {
                 var longestRulingHouse = monarches.GroupBy(m => m.House)
@@ -75,7 +75,7 @@ namespace Monarchs.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetMostCommonFirstName()
         {
-            var monarches = await _monarchsDataStore.GetAll();
+            var monarches = await _monarchsCache.GetAll();
             if (monarches != null && monarches.Any())
             {
                 var mostCommonFirstName = monarches.GroupBy(m => m.FirstName)
