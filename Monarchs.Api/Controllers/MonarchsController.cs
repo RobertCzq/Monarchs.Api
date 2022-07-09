@@ -69,5 +69,25 @@ namespace Monarchs.Api.Controllers
 
             return NotFound("Could not find any house!");
         }
+
+        [HttpGet("GetMostCommonFirstName")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetMostCommonFirstName()
+        {
+            var monarches = await _monarchsDataStore.GetAll();
+            if (monarches != null && monarches.Any())
+            {
+                var mostCommonFirstName = monarches.GroupBy(m => m.FirstName)
+                                                   .OrderByDescending(gr => gr.ToList().Count)
+                                                   .FirstOrDefault();
+                if (mostCommonFirstName != null)
+                {
+                    return Ok(mostCommonFirstName.Key);
+                }
+            }
+
+            return NotFound("Could not find out the most common first name!");
+        }
     }
 }

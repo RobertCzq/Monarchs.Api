@@ -1,4 +1,5 @@
-﻿using Monarchs.Common.Models;
+﻿using Monarchs.Common.Interfaces;
+using Monarchs.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Monarchs.Common.Utils
 {
-    public class MonarchConverter
+    public class MonarchConverter : IMonarchConverter
     {
         public MonarchConverter() { }
 
