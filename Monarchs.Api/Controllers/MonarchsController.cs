@@ -27,9 +27,8 @@ namespace Monarchs.Api.Controllers
             if (monarches != null && monarches.Any())
                 return Ok(monarches.Count());
 
-            return NotFound("Could not find any monarchs!");
+            return NotFound("Could not find any monarch!");
         }
-
 
         [HttpGet("GetLongestRulingMonarch")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -46,7 +45,29 @@ namespace Monarchs.Api.Controllers
                 }
             }
 
-            return NotFound("Could not find any monarchs!");
+            return NotFound("Could not find any monarch!");
+        }
+
+        [HttpGet("GetLongestRulingHouse")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetLongestRulingHouse()
+        {
+            var monarches = await _monarchsDataStore.GetAll();
+            if (monarches != null && monarches.Any())
+            {
+                var longestRulingHouse = monarches.GroupBy(m => m.House)
+                                                 .Select(houseGroup => new HouseViewModel(houseGroup.Key, 
+                                                                                          houseGroup.ToList().Sum(item => item.NrOfYearsRuled)))
+                                                 .OrderByDescending(hvm => hvm.NrOfYearsRuled)
+                                                 .FirstOrDefault();
+                if (longestRulingHouse != null)
+                {
+                    return Ok(longestRulingHouse);
+                }
+            }
+
+            return NotFound("Could not find any house!");
         }
     }
 }
