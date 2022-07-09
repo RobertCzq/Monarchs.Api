@@ -1,5 +1,6 @@
 ﻿using Monarchs.Common.Interfaces;
 using Monarchs.Common.Models;
+using Monarchs.Common.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,21 +21,27 @@ namespace Monarchs.Infastructure.DAO
             _jsonFilePath = _connectionStringProvider.GetConnectiongString();
         }
 
-        public async Task<int?> GetNumberOfMonarchs()
+        public async Task<IEnumerable<Monarch>> GetAll()
         {
-            IEnumerable<MonarchJsonModel>? allMonarchs = null;
+            var allMonarchs = new List<Monarch>();
 
             if (!string.IsNullOrEmpty(_jsonFilePath) && File.Exists(_jsonFilePath))
             {
                 await Task.Run(() =>
                 {
-                    var retrievedMonarchs = JsonConvert.DeserializeObject<IEnumerable<MonarchJsonModel>>(File.ReadAllText(_jsonFilePath));
-                    if (retrievedMonarchs != null)
-                        allMonarchs = retrievedMonarchs;               
+                    var retrievedMonarchsJsonModels = JsonConvert.DeserializeObject<IEnumerable<MonarchJsonModel>>(File.ReadAllText(_jsonFilePath));
+                    if (retrievedMonarchsJsonModels != null)
+                    {
+                        var converter = new MonarchConverter();
+                        foreach (var monarchJsonModel in retrievedMonarchsJsonModels)
+                        {
+                            allMonarchs.Add(converter.GetMonarchFromJsonModel(monarchJsonModel));
+                        }
+                    }
                 });
             }
 
-            return allMonarchs?.Count();
+            return allMonarchs;
         }
     }
 }

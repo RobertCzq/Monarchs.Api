@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monarchs.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Monarchs.Common.Interfaces
 {
     public interface IMonarchsDataStore
     {
-        Task<int?> GetNumberOfMonarchs();
+        Task<IEnumerable<Monarch>> GetAll();
     }
 }
