@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monarchs.Infastructure", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monarchs.Common", "Monarchs.Common\Monarchs.Common.csproj", "{8A193A17-6627-4520-A1BC-7DD5EAE4280F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monarchs.ApiClientApp", "Monarchs.ApiClientApp\Monarchs.ApiClientApp.csproj", "{CEF8DFAF-F3FB-4D98-B3C9-956A1DA7741D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8A193A17-6627-4520-A1BC-7DD5EAE4280F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A193A17-6627-4520-A1BC-7DD5EAE4280F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A193A17-6627-4520-A1BC-7DD5EAE4280F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEF8DFAF-F3FB-4D98-B3C9-956A1DA7741D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEF8DFAF-F3FB-4D98-B3C9-956A1DA7741D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEF8DFAF-F3FB-4D98-B3C9-956A1DA7741D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEF8DFAF-F3FB-4D98-B3C9-956A1DA7741D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
