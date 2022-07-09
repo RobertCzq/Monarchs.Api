@@ -17,12 +17,12 @@ namespace Monarchs.ApiClientApp
             {
                 Console.WriteLine("##################################################");
                 Console.WriteLine("Type in one of the following options to call api:");
-                Console.WriteLine(StringConstansts.Login);
-                Console.WriteLine(StringConstansts.GetNumberOfMonarchs);
-                Console.WriteLine(StringConstansts.GetLongestRulingMonarch);
-                Console.WriteLine(StringConstansts.GetLongestRulingHouse);
-                Console.WriteLine(StringConstansts.GetMostCommonFirstName);
-                Console.WriteLine(StringConstansts.Exit);
+                Console.WriteLine(OptionsConstansts.Login);
+                Console.WriteLine(OptionsConstansts.GetNumberOfMonarchs);
+                Console.WriteLine(OptionsConstansts.GetLongestRulingMonarch);
+                Console.WriteLine(OptionsConstansts.GetLongestRulingHouse);
+                Console.WriteLine(OptionsConstansts.GetMostCommonFirstName);
+                Console.WriteLine(OptionsConstansts.Exit);
                 Console.WriteLine("##################################################");
                 Console.WriteLine("Typed values are case sensitive");
                 Console.WriteLine("For the following endpoints you have to login first: ");
@@ -39,22 +39,22 @@ namespace Monarchs.ApiClientApp
                         var input = Console.ReadLine();
                         switch (input)
                         {
-                            case StringConstansts.Login:
+                            case OptionsConstansts.Login:
                                 Console.WriteLine(await clientHelper.Login());
                                 break;
-                            case StringConstansts.GetNumberOfMonarchs:
+                            case OptionsConstansts.GetNumberOfMonarchs:
                                 Console.WriteLine(await clientHelper.GetNumberOfMonarchs());
                                 break;
-                            case StringConstansts.GetLongestRulingMonarch:
+                            case OptionsConstansts.GetLongestRulingMonarch:
                                 Console.WriteLine(await clientHelper.GetLongestRuler());
                                 break;
-                            case StringConstansts.GetLongestRulingHouse:
+                            case OptionsConstansts.GetLongestRulingHouse:
                                 Console.WriteLine(await clientHelper.GetLongestRulingHouse());
                                 break;
-                            case StringConstansts.GetMostCommonFirstName:
+                            case OptionsConstansts.GetMostCommonFirstName:
                                 Console.WriteLine(await clientHelper.GetMostCommonFirstName());
                                 break;
-                            case StringConstansts.Exit:
+                            case OptionsConstansts.Exit:
                                 run = false;
                                 break;
                             default:

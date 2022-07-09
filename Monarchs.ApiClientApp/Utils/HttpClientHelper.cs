@@ -21,12 +21,11 @@ namespace Monarchs.ApiClientApp.Utils
 
         internal async Task<string> Login()
         {
-            var loginEndpoint = "https://localhost:7068/Login";
             var loginCredentials = new UserLogin("admin", "admin_PW");
             var credentialJson = JsonConvert.SerializeObject(loginCredentials);
             var httpContent = new StringContent(credentialJson, Encoding.UTF8, "application/json");
 
-            var loginResponse = await _client.PostAsync(loginEndpoint, httpContent);
+            var loginResponse = await _client.PostAsync(EnpointsConstansts.LoginEndpoint, httpContent);
             if (loginResponse.IsSuccessStatusCode && loginResponse.Content != null)
             {
                 var token = await loginResponse.Content.ReadAsStringAsync();
@@ -34,31 +33,26 @@ namespace Monarchs.ApiClientApp.Utils
                 return "Logged in";
             }
 
-            return "Login failed";
+            return GetError(loginResponse);
         }
 
         internal async Task<string> GetLongestRuler()
         {
-            var longestRulingMonarchEndpoint = "https://localhost:7068/Monarchs/GetLongestRulingMonarch";
-            var getLongestResponse = await _client.GetAsync(longestRulingMonarchEndpoint);
-            if (getLongestResponse.IsSuccessStatusCode)
+            var getResponse = await _client.GetAsync(EnpointsConstansts.LongestRulingMonarchEndpoint);
+            if (getResponse.IsSuccessStatusCode)
             {
-                var longestRuler = await getLongestResponse.Content.ReadAsStringAsync();
+                var longestRuler = await getResponse.Content.ReadAsStringAsync();
                 var longestRulerObj = JsonConvert.DeserializeObject<MonarchViewModel>(longestRuler);
                 if (longestRulerObj != null)
                     return $"The longest ruling monarch is {longestRulerObj.FullName} who ruled for {longestRulerObj.NrOfYearsRuled}";
             }
 
-            if (getLongestResponse.StatusCode is System.Net.HttpStatusCode.Unauthorized)
-                return "Unauthorized";
-
-            return string.Empty;
+            return GetError(getResponse);
         }
 
         internal async Task<string> GetNumberOfMonarchs()
         {
-            var NrOfMonarchsEndpoint = "https://localhost:7068/Monarchs/GetNumberOfMonarchs";
-            var getResponse = await _client.GetAsync(NrOfMonarchsEndpoint);
+            var getResponse = await _client.GetAsync(EnpointsConstansts.NrOfMonarchsEndpoint);
             if (getResponse.IsSuccessStatusCode)
             {
                 var nrOfRulers = await getResponse.Content.ReadAsStringAsync();
@@ -66,16 +60,12 @@ namespace Monarchs.ApiClientApp.Utils
                     return $"The number of monarchs is {nrOfRulers}";
             }
 
-            if (getResponse.StatusCode is System.Net.HttpStatusCode.Unauthorized)
-                return "Unauthorized";
-
-            return string.Empty;
+            return GetError(getResponse);
         }
 
         internal async Task<string> GetLongestRulingHouse()
         {
-            var longestRulingHouseEndpoint = "https://localhost:7068/Monarchs/GetLongestRulingHouse";
-            var getResponse = await _client.GetAsync(longestRulingHouseEndpoint);
+            var getResponse = await _client.GetAsync(EnpointsConstansts.LongestRulingHouseEndpoint);
             if (getResponse.IsSuccessStatusCode)
             {
                 var longestHouse = await getResponse.Content.ReadAsStringAsync();
@@ -84,27 +74,23 @@ namespace Monarchs.ApiClientApp.Utils
                     return $"The longest ruling house is {houseViewModel.House} who ruled for {houseViewModel.NrOfYearsRuled}";
             }
 
-            if (getResponse.StatusCode is System.Net.HttpStatusCode.Unauthorized)
-                return "Unauthorized";
-
-            return string.Empty;
+            return GetError(getResponse);
         }
 
         internal async Task<string> GetMostCommonFirstName()
         {
-            var longestRulingHouseEndpoint = "https://localhost:7068/Monarchs/GetMostCommonFirstName";
-            var getResponse = await _client.GetAsync(longestRulingHouseEndpoint);
+            var getResponse = await _client.GetAsync(EnpointsConstansts.LongestRulingHouseEndpoint);
             if (getResponse.IsSuccessStatusCode)
             {
                 var name = await getResponse.Content.ReadAsStringAsync();
                 return $"The most common name for a monarch is {name.Trim('"')}";
             }
 
-            if (getResponse.StatusCode is System.Net.HttpStatusCode.Unauthorized)
-                return "Unauthorized";
-
-            return string.Empty;
+            return GetError(getResponse);
         }
+
+        private string GetError(HttpResponseMessage httpResponseMessage) =>
+             $"Request failed with code: {httpResponseMessage.StatusCode} and message: {httpResponseMessage.ReasonPhrase}";
 
     }
 }
