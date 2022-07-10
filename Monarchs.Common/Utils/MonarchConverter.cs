@@ -27,29 +27,29 @@ namespace Monarchs.Common.Utils
 
         private int GetRullingYears(string yearsString)
         {
-            if (!string.IsNullOrEmpty(yearsString))
+            if (string.IsNullOrEmpty(yearsString))
+                return 0;
+
+            var years = yearsString.Split("-");
+            if (years != null && years.Length == 2)
             {
-                var years = yearsString.Split("-");
-                if (years != null && years.Length == 2)
+                var firstParsed = int.TryParse(years[0], out var firstYear);
+                var lastParsed = int.TryParse(years[1], out var lastYear);
+                var check = firstParsed && lastParsed;
+                if (check)
+                    return lastYear - firstYear;
+                else if (firstParsed && !lastParsed)
                 {
-                    var firstParsed = int.TryParse(years[0], out var firstYear);
-                    var lastParsed = int.TryParse(years[1], out var lastYear);
-                    var check = firstParsed && lastParsed;
-                    if (check)
-                        return lastYear - firstYear;
-                    else if (firstParsed && !lastParsed)
-                    {
-                        //asssume it's current ruler
-                        return DateTime.Now.Year - firstYear;
-                    }
-                }
-                else
-                {
-                    var onlyOneYear = int.TryParse(yearsString, out var year);
-                    if (onlyOneYear)
-                        return 1;
+                    //asssume it's current ruler
+                    return DateTime.Now.Year - firstYear;
                 }
             }
+            else
+            {
+                var onlyOneYear = int.TryParse(yearsString, out var _);
+                if (onlyOneYear)
+                    return 1;
+            }           
 
             return 0;
         }
