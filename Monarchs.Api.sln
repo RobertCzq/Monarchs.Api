@@ -5,13 +5,13 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monarchs.Api", "Monarchs.Api\Monarchs.Api.csproj", "{70FED153-EA42-45EC-9D43-D31F31EFE585}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monarchs.Infastructure", "Monarchs.Infastructure\Monarchs.Infastructure.csproj", "{31FF1431-C239-4BB4-84CE-0BB0AA54CF50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monarchs.Infrastructure", "Monarchs.Infastructure\Monarchs.Infrastructure.csproj", "{31FF1431-C239-4BB4-84CE-0BB0AA54CF50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monarchs.Common", "Monarchs.Common\Monarchs.Common.csproj", "{8A193A17-6627-4520-A1BC-7DD5EAE4280F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monarchs.Common", "Monarchs.Common\Monarchs.Common.csproj", "{8A193A17-6627-4520-A1BC-7DD5EAE4280F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monarchs.ApiClientApp", "Monarchs.ApiClientApp\Monarchs.ApiClientApp.csproj", "{CEF8DFAF-F3FB-4D98-B3C9-956A1DA7741D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monarchs.ApiClientApp", "Monarchs.ApiClientApp\Monarchs.ApiClientApp.csproj", "{CEF8DFAF-F3FB-4D98-B3C9-956A1DA7741D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monarchs.Api.UnitTests", "Monarchs.Api.UnitTests\Monarchs.Api.UnitTests.csproj", "{18734CCD-617A-430D-B700-90C6ABE40306}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monarchs.Api.UnitTests", "Monarchs.Api.UnitTests\Monarchs.Api.UnitTests.csproj", "{18734CCD-617A-430D-B700-90C6ABE40306}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
